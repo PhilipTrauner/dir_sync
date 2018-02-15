@@ -1,0 +1,53 @@
+syntax = "proto2";
+
+package dir_sync;
+
+message SanityCheck {
+	// Time on server and client should be approximately equal 
+	required int64 time = 1;
+}
+
+message FileMetadata {
+	// Relative path from sync directory to file
+	required string relative_path = 1;
+	// Last modification
+	required int64 mtime = 2;
+	// File size in bytes
+	required int64 size = 3;
+	// SHA-512 hash (currently not easily breakable)
+	required string hash = 4;
+}
+
+message MinimalFileMetadata {
+	// Relative path from sync directory to file
+	required string relative_path = 1;
+	// Last modification
+	required int64 mtime = 2;
+}
+
+message DirectoryMetadata {
+	required string relative_path = 1;
+}
+
+message FileTree {
+	repeated DirectoryMetadata directories = 1;
+	repeated FileMetadata files = 2;
+}
+
+// Request transmission of file
+message FileRequest {
+	required string relative_path = 1;
+}
+
+// Requested or forced file split into parts
+message FileResponse {
+	required bytes part = 1;
+}
+
+// Request directory creation
+message DirectoryRequest {
+	required string relative_path = 1;
+}
+
+// Delimits protocol stages
+message ProtocolSeparator {}

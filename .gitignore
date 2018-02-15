@@ -1,0 +1,13 @@
+*.out
+.DS_Store
+compile_commands.json
+*.cmake
+CMakeCache.txt
+CMakeFiles
+build
+*.sublime*
+.envrc
+documentation/*
+!documentation/Makefile
+!documentation/images
+!documentation/documentation.tex
